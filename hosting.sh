@@ -89,7 +89,7 @@ expect eof
 ")
     echo "$SECURE_MYSQL"
 
-    cat >>/etc/mysql/mariadb.conf/root <<EOL
+    cat >>/etc/mysql/mariadb.conf.d/root <<EOL
 user: root
 password: $ROOTPASS
 EOL
