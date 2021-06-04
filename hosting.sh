@@ -109,10 +109,36 @@ function litespeedInstall() {
     ln -sf /usr/local/lsws/lsphp80/bin/lsphp /usr/local/lsws/fcgi-bin/lsphp80
 }
 
-function hostingAgent() {
-    sudo wget -O -
+function agentInstall() {
+    mkdir /usr/Hosting/
+    cd /usr/Hositng
+    wget -O agent https://raw.githubusercontent.com/AKASHRP98/agent/master/agent
+
+    cat >>/etc/systemctl/system/agent.service <<EOL
+[Unit]
+Description=Hosting angent
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/Hosting/agent
+KillMode=process
+User=root
+Group=root
+Restart=on-failure
+SuccessExitStatus=2
+
+[Install]
+WantedBy=multi-user.target
+Alias=sman.service
+
+EOL
+
+    systemctl daemon-reload
+
 }
+
 nusterInstall
 mariadbInstall
 litespeedInstall
-hostingAgent
+agentInstall
