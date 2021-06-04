@@ -107,6 +107,7 @@ function litespeedInstall() {
     ln -sf /usr/local/lsws/lsphp73/bin/lsphp /usr/local/lsws/fcgi-bin/lsphp73
     ln -sf /usr/local/lsws/lsphp74/bin/lsphp /usr/local/lsws/fcgi-bin/lsphp74
     ln -sf /usr/local/lsws/lsphp80/bin/lsphp /usr/local/lsws/fcgi-bin/lsphp80
+    ln -s /usr/local/lsws/lsphp74/bin/php /usr/bin/php
 }
 
 function agentInstall() {
@@ -135,6 +136,12 @@ Alias=sman.service
 EOL
 
     systemctl daemon-reload
+
+    mkdir /usr/Hositng/bin
+    cd bin
+    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    chmod +x wp-cli.phar
+    mv wp-cli.par wp-cli
 
 }
 
