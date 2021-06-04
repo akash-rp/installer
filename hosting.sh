@@ -149,3 +149,5 @@ nusterInstall
 mariadbInstall
 litespeedInstall
 agentInstall
+
+rm hosting.sh
