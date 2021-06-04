@@ -20,7 +20,7 @@ function nusterInstall() {
     cd /usr/local/$NAME/sbin/
     mv nuster $NAME
 
-    cat >>/etc/systemctl/system/hosting.service <<EOL
+    cat >>/etc/systemd/system/hosting.service <<EOL
 
 [Unit]
 Description=Hosting cache server
@@ -112,13 +112,12 @@ function litespeedInstall() {
 
 function agentInstall() {
     mkdir /usr/Hosting/
-    cd /usr/Hositng
+    cd /usr/Hosting
     wget -O agent https://raw.githubusercontent.com/AKASHRP98/agent/master/agent
 
-    cat >>/etc/systemctl/system/agent.service <<EOL
+    cat >>/etc/systemd/system/agent.service <<EOL
 [Unit]
-Description=Hosting angent
-After=network.target
+Description=Hosting agent
 
 [Service]
 Type=simple
@@ -131,7 +130,6 @@ SuccessExitStatus=2
 
 [Install]
 WantedBy=multi-user.target
-Alias=sman.service
 
 EOL
 
