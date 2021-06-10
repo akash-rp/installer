@@ -17,6 +17,7 @@ function nusterInstall() {
     make install PREFIX=/usr/local/$NAME
     cd
     rm -rf nuster-5.2.5.22
+    rm -rf nuster-5.2.5.22.tar.gz
     cd /usr/local/$NAME/sbin/
     mv nuster $NAME
 
@@ -113,7 +114,9 @@ function litespeedInstall() {
 function agentInstall() {
     mkdir /usr/Hosting/
     cd /usr/Hosting
-    wget -O agent https://raw.githubusercontent.com/AKASHRP98/agent/master/agent
+    wget -O agent https://github.com/AKASHRP98/agent/releases/download/main/agent
+    chmod +x agent
+    wget -O config.json https://raw.githubusercontent.com/AKASHRP98/agent/master/config.json
 
     cat >>/etc/systemd/system/agent.service <<EOL
 [Unit]
@@ -135,8 +138,6 @@ EOL
 
     systemctl daemon-reload
 
-    mkdir /usr/Hositng/bin
-    cd bin
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
     chmod +x wp-cli.phar
     mv wp-cli.par wp-cli
@@ -147,5 +148,9 @@ nusterInstall
 mariadbInstall
 litespeedInstall
 agentInstall
-
+cd
 rm hosting.sh
+
+service agent start
+service hosting start
+service mariadb start
