@@ -2,7 +2,7 @@
 function agentInstall() {
     mkdir /usr/Hosting/
     cd /usr/Hosting
-    wget -O agent https://github.com/AKASHRP98/agent/releases/download/main/agent
+    wget -O agent https://github.com/AKASHRP98/agent/blob/master/agent?raw=true
     chmod +x agent
     wget -O config.json https://raw.githubusercontent.com/AKASHRP98/agent/master/config.json
 
