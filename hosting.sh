@@ -37,9 +37,8 @@ Description=Hosting cache server
 After=syslog.target network.target
 
 [Service]
-Environment="CONFIG=/opt/hosting.cfg"
-ExecStart=/usr/local/hosting/sbin/hosting -f $CONFIG -D -q
-ExecReload=/usr/local/hosting/sbin/hosting -f $CONFIG -D -q
+ExecStart=/usr/local/hosting/sbin/hosting -f /opt/hosting.cfg -D -q
+ExecReload=/usr/local/hosting/sbin/hosting -f /opt/hosting.cfg -D -q
 ExecReload=/bin/kill -USR2 $MAINPID
 KillMode=mixed
 Restart=always
