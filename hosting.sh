@@ -119,6 +119,7 @@ function litespeedInstall() {
     ln -sf /usr/local/lsws/lsphp74/bin/lsphp /usr/local/lsws/fcgi-bin/lsphp74
     ln -sf /usr/local/lsws/lsphp80/bin/lsphp /usr/local/lsws/fcgi-bin/lsphp80
     ln -s /usr/local/lsws/lsphp74/bin/php /usr/bin/php
+    wget -O /usr/local/lsws/conf/httpd_config.conf https://raw.githubusercontent.com/AKASHRP98/lsws/master/httpd_config.conf
 }
 
 function agentInstall() {
