@@ -165,3 +165,4 @@ rm hosting.sh
 service agent start
 service hosting start
 service mariadb start
+service lsws restart
