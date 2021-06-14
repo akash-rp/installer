@@ -166,6 +166,7 @@ function misc() {
     touch /etc/incron.d/sites.txt
 }
 
+packages
 nusterInstall
 mariadbInstall
 litespeedInstall
