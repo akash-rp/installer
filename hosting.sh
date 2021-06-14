@@ -164,6 +164,7 @@ EOL
 function misc() {
     echo "root" >/etc/incron.allow
     touch /etc/incron.d/sites.txt
+    apt-get dist-upgrade -y
 }
 
 packages
