@@ -161,13 +161,18 @@ EOL
     wget -O /usr/Hosting/errors/404.http https://raw.githubusercontent.com/AKASHRP98/agent/master/404.http
 }
 
+function misc() {
+    echo "root" >/etc/incron.allow
+    touch /etc/incron.d/sites.txt
+}
+
 nusterInstall
 mariadbInstall
 litespeedInstall
 agentInstall
 cd
 rm hosting.sh
-
+misc
 service agent start
 service hosting start
 service mariadb start
