@@ -7,7 +7,7 @@ function RandomString {
 function packages() {
     apt-get update -y
     apt-get upgrade -y
-    apt-get install -y wget tar make curl incron
+    apt-get install -y wget tar make curl incron openssl
 }
 function nusterInstall() {
 
@@ -33,7 +33,8 @@ function nusterInstall() {
     rm -rf nuster-5.2.5.22.tar.gz
     cd /usr/local/$NAME/sbin/
     mv nuster $NAME
-
+    mkdir /opt/Hosting
+    openssl dhparam -out /opt/Hosting/dhparam.pem 2048
     cat >>/etc/systemd/system/hosting.service <<EOL
 
 [Unit]
@@ -41,8 +42,8 @@ Description=Hosting cache server
 After=syslog.target network.target
 
 [Service]
-ExecStart=/usr/local/hosting/sbin/hosting -f /opt/hosting.cfg -D -q
-ExecReload=/usr/local/hosting/sbin/hosting -f /opt/hosting.cfg -D -q
+ExecStart=/usr/local/hosting/sbin/hosting -f /opt/Hosting/hosting.cfg -D -q
+ExecReload=/usr/local/hosting/sbin/hosting -f /opt/Hosting/hosting.cfg -D -q
 ExecReload=/bin/kill -USR2 $MAINPID
 KillMode=mixed
 Restart=always
