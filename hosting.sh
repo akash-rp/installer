@@ -166,6 +166,7 @@ function misc() {
     echo "root" >/etc/incron.allow
     touch /etc/incron.d/sites.txt
     apt-get dist-upgrade -y
+    wget -O /etc/cron.d/lsws https://raw.githubusercontent.com/AKASHRP98/hosting/lsws
 }
 
 packages
