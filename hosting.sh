@@ -22,15 +22,15 @@ function nusterInstall() {
 ╚═╝╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═══╝ ╚═════╝     ╚═╝  ╚═══╝ ╚═════╝ ╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝
 "
 
-    wget https://github.com/jiangwenyuan/nuster/releases/download/v5.2.5.22/nuster-5.2.5.22.tar.gz
-    tar -xf nuster-5.2.5.22.tar.gz
-    cd nuster-5.2.5.22
+    wget https://github.com/jiangwenyuan/nuster/releases/download/v5.3.0.23/nuster-5.3.0.23.tar.gz
+    tar -xf nuster-5.3.0.23.tar.gz
+    cd nuster-5.3.0.23
     apt-get install -y libz-dev libssl-dev libpcre3-dev build-essential make
     make TARGET=linux-glibc USE_OPENSSL=1 USE_PCRE=1 USE_ZLIB=1
     make install PREFIX=/usr/local/$NAME
     cd
-    rm -rf nuster-5.2.5.22
-    rm -rf nuster-5.2.5.22.tar.gz
+    rm -rf nuster-5.3.0.23
+    rm -rf nuster-5.3.0.23.tar.gz
     cd /usr/local/$NAME/sbin/
     mv nuster $NAME
     mkdir /opt/Hosting
