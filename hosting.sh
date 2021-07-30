@@ -7,7 +7,7 @@ function RandomString {
 function packages() {
     apt-get update -y
     apt-get upgrade -y
-    apt-get install -y wget tar make curl incron openssl certbot
+    apt-get install -y vnstat wget tar make curl incron openssl certbot
 }
 function nusterInstall() {
 
