@@ -174,6 +174,10 @@ function misc() {
     sudo chmod 755 /etc/letsencrypt/renewal-hooks/pre/stopHosting.sh
     sudo chmod 755 /etc/letsencrypt/renewal-hooks/post/startHosting.sh
     mkdir /opt/Hosting/certs
+    curl -s https://kopia.io/signing-key | sudo apt-key add -
+    echo "deb http://packages.kopia.io/apt/ stable main" | sudo tee /etc/apt/sources.list.d/kopia.list
+    sudo apt update
+    sudo apt install kopia
 }
 
 packages
