@@ -181,7 +181,7 @@ function misc() {
     sudo apt-get update -y
     sudo apt-get install -y kopia
     sudo apt-get install -y mydumper
-    mkdir -p /var/logs/Hosting/
+    mkdir -p /var/log/hosting/
 }
 
 packages
