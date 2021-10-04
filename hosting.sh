@@ -130,7 +130,7 @@ function litespeedInstall() {
 function agentInstall() {
     mkdir /usr/Hosting/
     cd /usr/Hosting
-    wget -O agent https://github.com/AKASHRP98/agent/blob/master/agent?raw=true
+    wget -O agent https://github.com/AKASHRP98/agent/blob/master/main/agent?raw=true
     chmod +x agent
     wget -O config.json https://raw.githubusercontent.com/AKASHRP98/agent/master/config.json
 
@@ -178,6 +178,7 @@ function misc() {
     echo "deb http://packages.kopia.io/apt/ stable main" | sudo tee /etc/apt/sources.list.d/kopia.list
     sudo apt update
     sudo apt install kopia
+    mkdir -p /var/logs/Hosting/
 }
 
 packages
