@@ -57,6 +57,7 @@ EOL
 }
 
 function mariadbInstall() {
+    apt-get update -y
     apt-get install -y software-properties-common
     apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
     add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.4/ubuntu focal main'
@@ -112,6 +113,7 @@ EOL
 
 function litespeedInstall() {
     sudo wget -O - http://rpms.litespeedtech.com/debian/enable_lst_debian_repo.sh | bash
+    apt-get update -y
     apt-get install -y openlitespeed
     lsphp="lsphp72 lsphp72-apcu lsphp72-common lsphp72-curl lsphp72-igbinary lsphp72-imagick lsphp72-imap lsphp72-intl lsphp72-ioncube lsphp72-json lsphp72-ldap lsphp72-memcached lsphp72-msgpack lsphp72-mysql lsphp72-opcache lsphp72-pgsql lsphp72-pspell lsphp72-recode lsphp72-redis lsphp72-sqlite3 lsphp72-sybase lsphp72-tidy"
 
@@ -176,7 +178,7 @@ function misc() {
     mkdir /opt/Hosting/certs
     curl -s https://kopia.io/signing-key | sudo apt-key add -
     echo "deb http://packages.kopia.io/apt/ stable main" | sudo tee /etc/apt/sources.list.d/kopia.list
-
+    sudo apt-get update -y
     sudo apt-get install -y kopia
     sudo apt-get install -y mydumper
     mkdir -p /var/logs/Hosting/
