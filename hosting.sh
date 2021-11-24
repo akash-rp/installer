@@ -182,6 +182,9 @@ function misc() {
     sudo apt-get install -y kopia
     sudo apt-get install -y mydumper
     mkdir -p /var/log/hosting/
+    mkdir -p /usr/Hosting/script/
+    wget -O /usr/Hosting/script/srdb.cli.php https://raw.githubusercontent.com/AKASHRP98/Search-Replace-DB/master/srdb.cli.php
+    wget -O /usr/Hosting/script/srdb.class.php https://raw.githubusercontent.com/AKASHRP98/Search-Replace-DB/master/srdb.class.php
 }
 
 packages
