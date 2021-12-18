@@ -33,7 +33,10 @@ function nusterInstall() {
     rm -rf nuster-5.3.0.23.tar.gz
     cd /usr/local/$NAME/sbin/
     mv nuster $NAME
+    mkdir /var/lib/hosting
     mkdir /opt/Hosting
+    chmod 700 /opt/Hosting
+    adduser --system --no-create-home hosting
     openssl dhparam -out /opt/Hosting/dhparam.pem 2048
     cat >>/etc/systemd/system/hosting.service <<EOL
 
@@ -179,13 +182,36 @@ function misc() {
     curl -s https://kopia.io/signing-key | sudo apt-key add -
     echo "deb http://packages.kopia.io/apt/ stable main" | sudo tee /etc/apt/sources.list.d/kopia.list
     sudo apt-get update -y
-    sudo apt-get install -y kopia
     sudo apt-get install -y mydumper
     mkdir -p /var/log/hosting/
     mkdir -p /usr/Hosting/script/
     wget -O /usr/Hosting/script/srdb.cli.php https://raw.githubusercontent.com/AKASHRP98/Search-Replace-DB/master/srdb.cli.php
     wget -O /usr/Hosting/script/srdb.class.php https://raw.githubusercontent.com/AKASHRP98/Search-Replace-DB/master/srdb.class.php
 }
+
+function kopiaInit(){
+    sudo apt-get update -y
+    sudo apt-get install -y kopia
+    sudo kopia repository create filesystem --path=/var/Backup/automatic --password=kopia
+    sudo kopia repository create filesystem --path=/var/Backup/ondemand --password=kopia
+}
+
+function rsyslog(){
+    cat >>/etc/rsyslog.d/haproxy.conf << EOL
+
+$AddUnixListenSocket /var/lib/hosting/dev/log
+
+template(name="MyFormat" type="string"
+     string= "%msg%\n"
+    )
+# Creating separate log files based on the severity
+local0.* /var/log/haproxy-traffic.log;MyFormat
+local0.notice /var/log/haproxy-admin.log;MyFormat
+EOL
+
+sudo service rsyslog restart
+}
+
 
 packages
 nusterInstall
@@ -195,6 +221,7 @@ agentInstall
 cd
 rm hosting.sh
 misc
+rsyslog
 service agent start
 service hosting start
 service mariadb start
