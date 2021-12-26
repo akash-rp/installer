@@ -189,15 +189,15 @@ function misc() {
     wget -O /usr/Hosting/script/srdb.class.php https://raw.githubusercontent.com/AKASHRP98/Search-Replace-DB/master/srdb.class.php
 }
 
-function kopiaInit(){
+function kopiaInit() {
     sudo apt-get update -y
     sudo apt-get install -y kopia
     sudo kopia repository create filesystem --path=/var/Backup/automatic --password=kopia
     sudo kopia repository create filesystem --path=/var/Backup/ondemand --password=kopia
 }
 
-function rsyslog(){
-    cat >>/etc/rsyslog.d/haproxy.conf << EOL
+function rsyslog() {
+    cat >>/etc/rsyslog.d/haproxy.conf <<EOL
 
 $AddUnixListenSocket /var/lib/hosting/dev/log
 
@@ -209,9 +209,10 @@ local0.* /var/log/haproxy-traffic.log;MyFormat
 local0.notice /var/log/haproxy-admin.log;MyFormat
 EOL
 
-sudo service rsyslog restart
+    sudo service rsyslog restart
+    mkdir /var/lib/hosting/dev
+    touch /var/lib/hosting/dev/log
 }
-
 
 packages
 nusterInstall
@@ -222,6 +223,7 @@ cd
 rm hosting.sh
 misc
 rsyslog
+kopiaInit
 service agent start
 service hosting start
 service mariadb start
