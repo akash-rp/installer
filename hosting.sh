@@ -172,11 +172,8 @@ function misc() {
     touch /etc/incron.d/sites.txt
     apt-get dist-upgrade -y
     wget -O /etc/cron.d/lsws https://raw.githubusercontent.com/AKASHRP98/installer/master/lsws
-    mkdir -p /etc/letsencrypt/renewal-hooks/pre
     mkdir -p /etc/letsencrypt/renewal-hooks/post
-    wget -O /etc/letsencrypt/renewal-hooks/pre/stopHosting.sh https://raw.githubusercontent.com/AKASHRP98/installer/master/stopHosting.sh
-    wget -O /etc/letsencrypt/renewal-hooks/post/startHosting.sh https://raw.githubusercontent.com/AKASHRP98/installer/master/startHosting.sh
-    sudo chmod 755 /etc/letsencrypt/renewal-hooks/pre/stopHosting.sh
+    wget -O /etc/letsencrypt/renewal-hooks/post/startHosting.sh https://raw.githubusercontent.com/AKASHRP98/installer/master/combineCerts.sh
     sudo chmod 755 /etc/letsencrypt/renewal-hooks/post/startHosting.sh
     mkdir /opt/Hosting/certs
     curl -s https://kopia.io/signing-key | sudo apt-key add -
