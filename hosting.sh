@@ -81,15 +81,15 @@ function litespeedInstall() {
     ln -sf /usr/local/lsws/lsphp74/bin/lsphp /usr/local/lsws/fcgi-bin/lsphp74
     ln -sf /usr/local/lsws/lsphp80/bin/lsphp /usr/local/lsws/fcgi-bin/lsphp80
     ln -s /usr/local/lsws/lsphp74/bin/php /usr/bin/php
-    wget -O /usr/local/lsws/conf/httpd_config.conf https://raw.githubusercontent.com/AKASHRP98/lsws/master/httpd_config.conf
+    wget -O /usr/local/lsws/conf/httpd_config.conf https://raw.githubusercontent.com/akash-rp/lsws/master/httpd_config.conf
 }
 
 function agentInstall() {
     mkdir /usr/Hosting/
     cd /usr/Hosting
-    wget -O agent https://github.com/AKASHRP98/agent/blob/master/main/agent?raw=true
+    wget -O agent https://github.com/akash-rp/agent/blob/master/main/agent?raw=true
     chmod +x agent
-    wget -O config.json https://raw.githubusercontent.com/AKASHRP98/agent/master/config.json
+    wget -O config.json https://raw.githubusercontent.com/akash-rp/agent/master/config.json
 
     cat >>/etc/systemd/system/agent.service <<EOL
 [Unit]
@@ -116,14 +116,14 @@ EOL
     mv wp-cli.phar wp-cli
 
     mkdir /usr/Hosting/errors
-    wget -O /usr/Hosting/errors/404.http https://raw.githubusercontent.com/AKASHRP98/agent/master/404.http
+    wget -O /usr/Hosting/errors/404.http https://raw.githubusercontent.com/akash-rp/agent/master/404.http
 }
 
 function misc() {
     echo "root" >/etc/incron.allow
     touch /etc/incron.d/sites.txt
     apt-get dist-upgrade -y
-    wget -O /etc/cron.d/lsws https://raw.githubusercontent.com/AKASHRP98/installer/master/lsws
+    wget -O /etc/cron.d/lsws https://raw.githubusercontent.com/akash-rp/installer/master/lsws
     mkdir /opt/Hosting/certs
     curl -s https://kopia.io/signing-key | sudo apt-key add -
     echo "deb http://packages.kopia.io/apt/ stable main" | sudo tee /etc/apt/sources.list.d/kopia.list
@@ -131,8 +131,8 @@ function misc() {
     sudo apt-get install -y mydumper
     mkdir -p /var/log/hosting/
     mkdir -p /usr/Hosting/script/
-    wget -O /usr/Hosting/script/srdb.cli.php https://raw.githubusercontent.com/AKASHRP98/Search-Replace-DB/master/srdb.cli.php
-    wget -O /usr/Hosting/script/srdb.class.php https://raw.githubusercontent.com/AKASHRP98/Search-Replace-DB/master/srdb.class.php
+    wget -O /usr/Hosting/script/srdb.cli.php https://raw.githubusercontent.com/akash-rp/Search-Replace-DB/master/srdb.cli.php
+    wget -O /usr/Hosting/script/srdb.class.php https://raw.githubusercontent.com/akash-rp/Search-Replace-DB/master/srdb.class.php
 }
 
 function kopiaInit() {
