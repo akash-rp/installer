@@ -7,57 +7,9 @@ function RandomString {
 function packages() {
     apt-get update -y
     apt-get upgrade -y
-    apt-get install -y vnstat wget tar make curl incron openssl certbot
+    apt-get install -y vnstat wget tar make curl incron openssl
 }
-function nusterInstall() {
 
-    NAME="hosting"
-    cd
-    echo "
-██╗███╗   ██╗███████╗████████╗ █████╗ ██╗     ██╗     ██╗███╗   ██╗ ██████╗     ███╗   ██╗██╗   ██╗███████╗████████╗███████╗██████╗ 
-██║████╗  ██║██╔════╝╚══██╔══╝██╔══██╗██║     ██║     ██║████╗  ██║██╔════╝     ████╗  ██║██║   ██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗
-██║██╔██╗ ██║███████╗   ██║   ███████║██║     ██║     ██║██╔██╗ ██║██║  ███╗    ██╔██╗ ██║██║   ██║███████╗   ██║   █████╗  ██████╔╝
-██║██║╚██╗██║╚════██║   ██║   ██╔══██║██║     ██║     ██║██║╚██╗██║██║   ██║    ██║╚██╗██║██║   ██║╚════██║   ██║   ██╔══╝  ██╔══██╗
-██║██║ ╚████║███████║   ██║   ██║  ██║███████╗███████╗██║██║ ╚████║╚██████╔╝    ██║ ╚████║╚██████╔╝███████║   ██║   ███████╗██║  ██║
-╚═╝╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═══╝ ╚═════╝     ╚═╝  ╚═══╝ ╚═════╝ ╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝
-"
-
-    wget https://github.com/jiangwenyuan/nuster/releases/download/v5.3.0.23/nuster-5.3.0.23.tar.gz
-    tar -xf nuster-5.3.0.23.tar.gz
-    cd nuster-5.3.0.23
-    apt-get install -y libz-dev libssl-dev libpcre3-dev build-essential make
-    make TARGET=linux-glibc USE_OPENSSL=1 USE_PCRE=1 USE_ZLIB=1
-    make install PREFIX=/usr/local/$NAME
-    cd
-    rm -rf nuster-5.3.0.23
-    rm -rf nuster-5.3.0.23.tar.gz
-    cd /usr/local/$NAME/sbin/
-    mv nuster $NAME
-    mkdir /var/lib/hosting
-    mkdir /opt/Hosting
-    chmod 700 /opt/Hosting
-    adduser --system --no-create-home hosting
-    openssl dhparam -out /opt/Hosting/dhparam.pem 2048
-    cat >>/etc/systemd/system/hosting.service <<EOL
-
-[Unit]
-Description=Hosting cache server
-After=syslog.target network.target
-
-[Service]
-ExecStart=/usr/local/hosting/sbin/hosting -f /opt/Hosting/hosting.cfg -D -q
-ExecReload=/usr/local/hosting/sbin/hosting -f /opt/Hosting/hosting.cfg -D -q
-ExecReload=/bin/kill -USR2 $MAINPID
-KillMode=mixed
-Restart=always
-SuccessExitStatus=143
-Type=forking
-
-[Install]
-WantedBy=multi-user.target
-
-EOL
-}
 
 function mariadbInstall() {
     apt-get update -y
@@ -172,9 +124,6 @@ function misc() {
     touch /etc/incron.d/sites.txt
     apt-get dist-upgrade -y
     wget -O /etc/cron.d/lsws https://raw.githubusercontent.com/AKASHRP98/installer/master/lsws
-    mkdir -p /etc/letsencrypt/renewal-hooks/post
-    wget -O /etc/letsencrypt/renewal-hooks/post/startHosting.sh https://raw.githubusercontent.com/AKASHRP98/installer/master/combineCerts.sh
-    sudo chmod 755 /etc/letsencrypt/renewal-hooks/post/startHosting.sh
     mkdir /opt/Hosting/certs
     curl -s https://kopia.io/signing-key | sudo apt-key add -
     echo "deb http://packages.kopia.io/apt/ stable main" | sudo tee /etc/apt/sources.list.d/kopia.list
@@ -212,7 +161,6 @@ EOL
 }
 
 packages
-nusterInstall
 mariadbInstall
 litespeedInstall
 agentInstall
@@ -222,6 +170,5 @@ misc
 rsyslog
 kopiaInit
 service agent start
-service hosting start
 service mariadb start
 service lsws restart
