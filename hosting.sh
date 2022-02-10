@@ -81,6 +81,7 @@ function litespeedInstall() {
     ln -sf /usr/local/lsws/lsphp74/bin/lsphp /usr/local/lsws/fcgi-bin/lsphp74
     ln -sf /usr/local/lsws/lsphp80/bin/lsphp /usr/local/lsws/fcgi-bin/lsphp80
     ln -s /usr/local/lsws/lsphp74/bin/php /usr/bin/php
+    apt-get install ols-modsecurity -y
     wget -O /usr/local/lsws/conf/httpd_config.conf https://raw.githubusercontent.com/akash-rp/lsws/master/httpd_config.conf
     wget -O /usr/local/lsws/conf/cert/cert.pem https://raw.githubusercontent.com/akash-rp/lsws/master/cert/cert.pem
     wget -O /usr/local/lsws/conf/cert/key.pem https://raw.githubusercontent.com/akash-rp/lsws/master/cert/key.pem
