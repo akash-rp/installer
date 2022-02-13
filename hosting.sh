@@ -146,23 +146,17 @@ function kopiaInit() {
     sudo kopia repository create filesystem --path=/var/Backup/ondemand --password=kopia
 }
 
-function rsyslog() {
-    cat >>/etc/rsyslog.d/haproxy.conf <<EOL
 
-$AddUnixListenSocket /var/lib/hosting/dev/log
-
-template(name="MyFormat" type="string"
-     string= "%msg%\n"
-    )
-# Creating separate log files based on the severity
-local0.* /var/log/haproxy-traffic.log;MyFormat
-local0.notice /var/log/haproxy-admin.log;MyFormat
-EOL
-
-    sudo service rsyslog restart
-    mkdir /var/lib/hosting/dev
-    touch /var/lib/hosting/dev/log
+function NewrelicInstall(){
+    echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' | sudo tee /etc/apt/sources.list.d/newrelic.list
+    wget -O- https://download.newrelic.com/548C16BF.gpg | sudo apt-key add -
+    sudo apt-get update
+    apt-get -y install newrelic-php5
+    export NR_INSTALL_SILENT=true
+    export NR_INSTALL_PHPLIST=/usr/local/lsws/lsphp72/bin:/usr/local/lsws/lsphp73/bin:/usr/local/lsws/lsphp74/bin:/usr/local/lsws/lsphp80/bin
+    sudo -E newrelic-install install
 }
+
 
 packages
 mariadbInstall
@@ -171,8 +165,8 @@ agentInstall
 cd
 rm hosting.sh
 misc
-rsyslog
 kopiaInit
+NewrelicInstall
 service agent start
 service mariadb start
 service lsws restart
