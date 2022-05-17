@@ -63,9 +63,12 @@ expect eof
 user: root
 password: $ROOTPASS
 EOL
-
-    mysql -uroot -p$ROOTPASS -e ""
-
+    mysql -uroot -p$ROOTPASS -e "ALTER USER root@localhost IDENTIFIED VIA mysql_native_password USING PASSWORD('$ROOTPASS')"
+    cat >>/etc/mysql/mariadb.conf.d/unix_socket.cnf <<EOL
+[mariadb]
+disable_unix_socket
+EOL
+    service mariadb restart
 }
 
 function litespeedInstall() {
