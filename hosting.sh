@@ -143,9 +143,9 @@ function misc() {
 function kopiaInit() {
     sudo apt-get update -y
     sudo apt-get install -y kopia
-    sudo kopia repository create filesystem --path=/var/Backup/automatic --password=kopia
-    sudo kopia repository create filesystem --path=/var/Backup/ondemand --password=kopia
-    sudo kopia repository create filesystem --path=/var/Backup/system --password=kopia
+    sudo kopia repository create filesystem --path=/var/Backup/automatic --password=kopia --config-file=/var/Backup/config/automatic/automatic.config
+    sudo kopia repository create filesystem --path=/var/Backup/ondemand --password=kopia --config-file=/var/Backup/config/ondemand/ondemand.config
+    sudo kopia repository create filesystem --path=/var/Backup/system --password=kopia --config-file=/var/Backup/config/system/system.config
 }
 
 
@@ -159,6 +159,13 @@ function NewrelicInstall(){
     sudo -E newrelic-install install
 }
 
+function firewall(){
+    mkdir -p /usr/Hosting/firewall
+    cd /usr/Hosting/firewall
+    git clone https://github.com/akash-rp/coreruleset.git
+    git clone https://github.com/akash-rp/7g.git
+}
+
 
 packages
 mariadbInstall
@@ -169,6 +176,7 @@ rm hosting.sh
 misc
 kopiaInit
 NewrelicInstall
+firewall
 service agent start
 service mariadb start
 service lsws restart
