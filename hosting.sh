@@ -32,7 +32,7 @@ expect \"Enter current password for root (enter for none):\"
 send \"\r\"
 
 expect \"Switch to unix_socket authentication\"
-send \"y\r\"
+send \"n\r\"
 
 expect \"Change the root password?\"
 send \"y\r\"
@@ -63,6 +63,8 @@ expect eof
 user: root
 password: $ROOTPASS
 EOL
+
+    mysql -uroot -p$ROOTPASS -e ""
 
 }
 
