@@ -97,7 +97,7 @@ function litespeedInstall() {
 function agentInstall() {
     mkdir /usr/Hosting/
     cd /usr/Hosting
-    wget -O agent https://github.com/akash-rp/agent/blob/master/main/agent?raw=true
+    wget -O agent https://github.com/akash-rp/agent-binary/blob/main/agent?raw=true
     chmod +x agent
     wget -O config.json https://raw.githubusercontent.com/akash-rp/agent/master/config.json
 
