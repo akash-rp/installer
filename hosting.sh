@@ -152,7 +152,9 @@ function kopiaInit() {
     sudo kopia repository create filesystem --path=/var/Backup/automatic --password=kopia --config-file=/var/Backup/config/automatic/automatic.config
     sudo kopia repository create filesystem --path=/var/Backup/ondemand --password=kopia --config-file=/var/Backup/config/ondemand/ondemand.config
     sudo kopia repository create filesystem --path=/var/Backup/system --password=kopia --config-file=/var/Backup/config/system/system.config
-    sudo kopia --config-file=/var/Backup/config/system/system.config policy set --keep-latest 10 --global --keep-hourly 0 --keep-daily 0 --keep-weekly 0 --keep-monthly 0 --keep-annual 0
+    sudo kopia --config-file=/var/Backup/config/system/system.config policy set --global --keep-latest 10 --keep-hourly 0 --keep-daily 0 --keep-weekly 0 --keep-monthly 0 --keep-annual 0 --add-ignore lscache
+    sudo kopia --config-file=/var/Backup/config/automatic/automatic.config policy set --global --add-ignore lscache
+    sudo kopia --config-file=/var/Backup/config/ondemand/ondemand.config policy set --global --add-ignore lscache
 }
 
 
