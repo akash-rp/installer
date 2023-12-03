@@ -147,6 +147,11 @@ function misc() {
     sudo apt-get install -y fail2ban
     sudo apt-get install -y python3-pip
     pip3 install jc
+    ufw allow ssh
+    ufw allow 80
+    ufw allow 443
+    ufw allow 8081
+    ufw enable
 }
 
 function kopiaInit() {
