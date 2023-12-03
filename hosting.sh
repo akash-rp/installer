@@ -144,6 +144,9 @@ function misc() {
     wget -O /usr/Hosting/script/srdb.cli.php https://raw.githubusercontent.com/akash-rp/Search-Replace-DB/master/srdb.cli.php
     wget -O /usr/Hosting/script/srdb.class.php https://raw.githubusercontent.com/akash-rp/Search-Replace-DB/master/srdb.class.php
     mkdir /usr/local/lsws/php-ini
+    sudo apt-get install -y fail2ban
+    sudo apt-get install -y python3-pip
+    pip3 install jc
 }
 
 function kopiaInit() {
