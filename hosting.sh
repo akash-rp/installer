@@ -12,11 +12,7 @@ function packages() {
 
 
 function mariadbInstall() {
-    apt-get update -y
-    apt-get install -y software-properties-common
-    apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
-    add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.8/ubuntu focal main'
-    add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.8/ubuntu focal main'
+    curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-10.6"
     apt-get update -y
     apt-get install -y mariadb-server
     systemctl start mysql
