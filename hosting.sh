@@ -163,8 +163,8 @@ function kopiaInit() {
 
 
 function NewrelicInstall(){
-    echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' | sudo tee /etc/apt/sources.list.d/newrelic.list
-    wget -O- https://download.newrelic.com/548C16BF.gpg | sudo apt-key add -
+    echo 'deb [signed-by=/usr/share/keyrings/download.newrelic.com-newrelic.gpg] http://apt.newrelic.com/debian/ newrelic non-free' | sudo tee /etc/apt/sources.list.d/newrelic.list
+    wget -O- https://download.newrelic.com/548C16BF.gpg | sudo gpg --dearmor -o /usr/share/keyrings/download.newrelic.com-newrelic.gpg
     sudo apt-get update
     sudo apt-get -y install newrelic-php5
     export NR_INSTALL_SILENT=true
