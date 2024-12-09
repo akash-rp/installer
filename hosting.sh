@@ -5,16 +5,16 @@ function RandomString {
 }
 
 function packages() {
-    apt-get update -y
-    apt-get upgrade -y
-    apt-get install -y vnstat wget tar make curl incron openssl
+    sudo apt-get update -y
+    sudo apt-get upgrade -y
+    sudo apt-get install -y vnstat wget tar make curl incron openssl
 }
 
 
 function mariadbInstall() {
     curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-10.6"
-    apt-get update -y
-    apt-get install -y mariadb-server
+    sudo apt-get update -y
+    sudo apt-get install -y mariadb-server
     systemctl start mysql
     apt-get install -y expect
 
@@ -69,9 +69,9 @@ EOL
 }
 
 function litespeedInstall() {
-    sudo wget -O - http://rpms.litespeedtech.com/debian/enable_lst_debian_repo.sh | bash
-    apt-get update -y
-    apt-get install -y openlitespeed
+    sudo wget -O - https://repo.litespeed.sh | sudo bash
+    sudo apt-get update -y
+    sudo apt-get install -y openlitespeed
     lsphp="lsphp72 lsphp72-apcu lsphp72-common lsphp72-curl lsphp72-igbinary lsphp72-imagick lsphp72-imap lsphp72-intl lsphp72-ioncube lsphp72-json lsphp72-ldap lsphp72-memcached lsphp72-msgpack lsphp72-mysql lsphp72-opcache lsphp72-pgsql lsphp72-pspell lsphp72-recode lsphp72-redis lsphp72-sqlite3 lsphp72-sybase lsphp72-tidy"
 
     lsphp+=" lsphp73 lsphp73-apcu lsphp73-common lsphp73-curl lsphp73-igbinary lsphp73-imagick lsphp73-imap lsphp73-intl lsphp73-ioncube lsphp73-json lsphp73-ldap lsphp73-memcached lsphp73-msgpack lsphp73-mysql lsphp73-opcache lsphp73-pgsql lsphp73-pspell lsphp73-recode lsphp73-redis lsphp73-sqlite3 lsphp73-sybase lsphp73-tidy"
@@ -128,7 +128,7 @@ EOL
 function misc() {
     echo "root" >/etc/incron.allow
     touch /etc/incron.d/sites.txt
-    apt-get dist-upgrade -y
+    sudo apt-get dist-upgrade -y
     wget -O /etc/cron.d/lsws https://raw.githubusercontent.com/akash-rp/installer/master/lsws
     mkdir /opt/Hosting/certs
     curl -s https://kopia.io/signing-key | sudo apt-key add -
@@ -166,7 +166,7 @@ function NewrelicInstall(){
     echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' | sudo tee /etc/apt/sources.list.d/newrelic.list
     wget -O- https://download.newrelic.com/548C16BF.gpg | sudo apt-key add -
     sudo apt-get update
-    apt-get -y install newrelic-php5
+    sudo apt-get -y install newrelic-php5
     export NR_INSTALL_SILENT=true
     export NR_INSTALL_PHPLIST=/usr/local/lsws/lsphp72/bin:/usr/local/lsws/lsphp73/bin:/usr/local/lsws/lsphp74/bin:/usr/local/lsws/lsphp80/bin
     sudo -E newrelic-install install
