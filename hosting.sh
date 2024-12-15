@@ -185,7 +185,7 @@ function firewall(){
 }
 
 packages
-mariadbInstall
+# mariadbInstall
 litespeedInstall
 agentInstall
 cd
