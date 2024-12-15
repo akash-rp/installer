@@ -5,9 +5,10 @@ function RandomString {
 }
 
 function packages() {
-    sudo apt-get update -y
-    sudo apt-get upgrade -y
-    sudo apt-get install -y vnstat wget tar make curl incron openssl
+    apt-get update -y
+    apt-get upgrade -y
+    apt-get install -y sudo
+    sudo apt-get install -y vnstat wget tar make curl incron openssl sudo 
 }
 
 
@@ -142,6 +143,7 @@ function misc() {
     mkdir /usr/local/lsws/php-ini
     sudo apt-get install -y fail2ban
     sudo apt-get install -y python3-pip
+    sudo apt-get install -y ufw
     pip3 install jc
     ufw allow ssh
     ufw allow 80
@@ -151,7 +153,10 @@ function misc() {
 }
 
 function kopiaInit() {
-    sudo apt-get update -y
+    sudo mkdir /etc/apt/keyrings
+    curl -s https://kopia.io/signing-key | sudo gpg --dearmor -o /etc/apt/keyrings/kopia-keyring.gpg
+    echo "deb [signed-by=/etc/apt/keyrings/kopia-keyring.gpg] http://packages.kopia.io/apt/ stable main" | sudo tee /etc/apt/sources.list.d/kopia.list
+    sudo apt update
     sudo apt-get install -y kopia
     sudo kopia repository create filesystem --path=/var/Backup/automatic --password=kopia --config-file=/var/Backup/config/automatic/automatic.config
     sudo kopia repository create filesystem --path=/var/Backup/ondemand --password=kopia --config-file=/var/Backup/config/ondemand/ondemand.config
@@ -179,7 +184,6 @@ function firewall(){
     git clone https://github.com/akash-rp/7g.git
 }
 
-
 packages
 mariadbInstall
 litespeedInstall
@@ -188,7 +192,6 @@ cd
 rm hosting.sh
 misc
 kopiaInit
-NewrelicInstall
 firewall
 service agent start
 service mariadb start
