@@ -16,7 +16,7 @@ function mariadbInstall() {
     curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-10.6"
     sudo apt-get update -y
     sudo apt-get install -y mariadb-server
-    systemctl start mysql
+    service mariadb start
     apt-get install -y expect
 
     ROOTPASS=$(RandomString)
