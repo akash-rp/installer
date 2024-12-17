@@ -132,8 +132,6 @@ function misc() {
     sudo apt-get dist-upgrade -y
     wget -O /etc/cron.d/lsws https://raw.githubusercontent.com/akash-rp/installer/master/lsws
     mkdir /opt/Hosting/certs
-    curl -s https://kopia.io/signing-key | sudo apt-key add -
-    echo "deb http://packages.kopia.io/apt/ stable main" | sudo tee /etc/apt/sources.list.d/kopia.list
     sudo apt-get update -y
     sudo apt-get install -y mydumper
     mkdir -p /var/log/hosting/
